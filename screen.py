@@ -23,7 +23,7 @@ class GameScreen:
             elif c == 'b':
                 hero = 'Barbarian'
 
-        self.game = Game("rooms/startroom")
+        self.game = Game("rooms/startroom", hero)
 
     def play(self):
         '''(Game) -> NoneType

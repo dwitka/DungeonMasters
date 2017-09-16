@@ -8,22 +8,20 @@ EAST = 2
 WEST = 3
 CENTRE = 4
 
-
 class Game:
     '''The controller class that keeps track of the current room
     the hero is in, the screen it should display to, etc. '''
 
-    def __init__(self, mapname):
+    def __init__(self, mapname, hero):
         '''(Game, str) -> NoneType
         Create a new Game given the name of an initial room
         to load. mapname excludes extension.'''
 
         self.current_room = self.load(mapname)
-        x = input("Rogue\nBarbarian\nMage\nChoose your player: ")
-        self.hero = Hero(str(x))
+        self.hero = Hero(str(hero))
+        
         # start hero in position 4 (center)
         # corresponding to Room.locations[4]
-
         self.current_room.add_hero(self.hero, CENTRE)
 
     def game_over(self):
@@ -54,8 +52,6 @@ class Game:
             currline = mapfile.readline()
             row += 1
 
-        
-        
         #begin populating with items
         assert mapfile.readline() == "ITEMS\n"
         currline = mapfile.readline()
@@ -90,7 +86,3 @@ class Game:
 
         self.current_room.move_hero(x, y)
 
-
-'''if __name__ == "__main__":
-    s = GameScreen(Game("rooms/startroom"))
-    s.play()'''
