@@ -35,7 +35,7 @@ class Wall:
         return "X"
     
 class Item:
-    '''A subclass of Tile that represents an impassable wall.'''
+    '''A subclass of Tile that represents a retrievable item.'''
 
     def __init__(self, vis=False):
         '''(Item) -> NoneType
@@ -47,11 +47,10 @@ class Item:
         '''(Item) -> str
         Return the map representation symbol for Wall: X.'''
 
-        #return "\u2588"
         return "I"
     
 class Monster:
-    '''A subclass of Tile that represents an impassable wall.'''
+    '''A subclass of Tile that represents an Enemy.'''
 
     def __init__(self, vis=False):
         '''(Monster) -> NoneType
@@ -63,5 +62,19 @@ class Monster:
         '''(Monster) -> str
         Return the map representation symbol for Wall: X.'''
 
-        #return "\u2588"
         return "M"
+
+class Door:
+    '''A subclass of Tile that represents a Door.'''
+
+    def __init__(self, vis=False):
+        '''(Door) -> NoneType
+        Construct an impenetrable Tile'''
+        self.visible = vis
+        #Tile.__init__(self)
+
+    def symbol(self):
+        '''(Door) -> str
+        Return the map representation symbol for Wall: X.'''
+
+        return "D"

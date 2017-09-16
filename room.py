@@ -15,7 +15,7 @@ class Room:
         '''(Room, Game, list) -> NoneType
         Create a new Room that belongs to game game.
         Add walls at all coordinates specified as tuples (x, y) in walls.'''
-        
+
         self.game = game
         self.rows = ROWS
         self.cols = COLS
@@ -46,11 +46,13 @@ class Room:
         #each direction: 0 - north, 1 - south, 2 - east, 3 - west
         # 4 - center
 
-        self.locations = [(self.rows - 2, ceil(self.cols // 2)),
-                        (1, ceil(self.cols // 2)),
-                        (ceil(self.rows // 2), 1),
-                        (ceil(self.rows // 2), self.cols - 2),
-                        (ceil(self.rows // 2), ceil(self.cols // 2))]
+        self.locations = [
+            (self.rows - 2, ceil(self.cols // 2)),
+            (1, ceil(self.cols // 2)),
+            (ceil(self.rows // 2), 1),
+            (ceil(self.rows // 2), self.cols - 2),
+            (ceil(self.rows // 2), ceil(self.cols // 2))
+            ]
 
     def update_visibility(self):
         '''(Room) -> NoneType
@@ -112,6 +114,9 @@ class Room:
             return
 
         # DOOR CODE GOES HERE
+        # if type(self.grid[newx][newy]) == Door:
+        #   load new room
+        #   place hero in position
 
         else:
             self.resolve(newx, newy)
