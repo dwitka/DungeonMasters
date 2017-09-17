@@ -10,6 +10,7 @@ class GameScreen:
         '''(GameScreen) -> NoneType
         Initialize new game with new user-selected hero class
         and starting room files.'''
+        self.game_list =[]
         hero = None
         #Get the text input and choose the hero
         while hero is None:
@@ -63,37 +64,60 @@ class GameScreen:
         #Render a GAME OVER screen with text mostly centered
         #In the space of the room in which the character died.
         if self.game.game_over():
-            #Top row
-            room_string += "X" * (2 + room.cols) + "\n"
-            #Empty rows above GAME OVER
-            for i in list(range(floor((room.rows - 2) / 2))):
-                room_string += "X" + " " * room.cols + "X\n"
-            #GAME OVER rows
-            room_string += ("X" + " " * floor((room.cols - 4) / 2) +
-                "GAME" + " " * ceil((room.cols - 4) / 2) + "X\n")
-            room_string += ("X" + " " * floor((room.cols - 4) / 2) +
-                "OVER" + " " * ceil((room.cols - 4) / 2) + "X\n")
-            #Empty rows below GAME OVER
-            for i in list(range(ceil((room.rows - 2) / 2))):
-                room_string += "X" + " " * room.cols + "X\n"
-            #Bottom row
-            room_string += "X" * (2 + room.cols) + "\n"
+            room_string = self.get_gameover_room()
         else:
-            for row in range(room.rows):
-                for column in room.grid[row]:
-                    if column is not None:
-                        if column.visible:
-                            room_string += column.symbol()
-                        else:
-                            #This is the symbol for 'not yet explored' : ?
-                            room_string += "?"
-                room_string += "\n"
+            room_string = self.get_room(room_string, room)
         #Hero representation
         room_string += str(self.game.hero)
         #Last status message
         room_string += room.status
         return room_string
-    
+
+
+    def get_gameover_room(self):
+        self.game_list[5][7] = " "
+        self.game_list[5][8] = "G"
+        self.game_list[5][9] = "A"
+        self.game_list[5][10] = "M"
+        self.game_list[5][11] = "E"
+        self.game_list[5][12] = " "
+
+        self.game_list[6][7] = " "
+        self.game_list[6][8] = "O"
+        self.game_list[6][9] = "V"
+        self.game_list[6][10] = "E"
+        self.game_list[6][11] = "R"
+        self.game_list[6][12] = " "
+        
+        return self.list_to_string()
+
+
+    def get_room(self, room_string, room):
+        self.game_list =[]
+        for row in range(room.rows):
+            self.game_list.append([])
+            for column in room.grid[row]:
+                self.game_list[row].append(column.symbol())
+                if column is not None:
+                    if column.visible:
+                        room_string += column.symbol()
+                    else:
+                        #Not yet explored symbol : ?
+                        room_string += "?"
+            room_string += "\n"
+        return room_string
+
+
+    def list_to_string(self):
+        List = self.game_list
+        game_string = ""
+        for row in List:
+            for column in row:
+                game_string = game_string + column
+            game_string += "\n"
+        return game_string
+
+
 #Start the game 
 if __name__ == '__main__':
     game_screen = GameScreen()
