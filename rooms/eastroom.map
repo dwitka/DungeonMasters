@@ -4,7 +4,7 @@ X                   X
 X    XXXXXXXXX      X
 X    X              X
 X    X              X
-X    XXXXXXX        X
+D    XXXXXXX        X
 X    X              X
 X    X              X
 X    XXXXXXXXX      X
@@ -12,5 +12,8 @@ X                   X
 XXXXXXXXXXXXXXXXXXXXX
 MAPFINISH
 ITEMS
+Healing Potion,4,0,0,5,12
 MONSTERS
+Troll,4,2,3,9
+Troll,5,2,3,1
 ENDFILE
