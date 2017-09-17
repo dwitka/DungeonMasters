@@ -14,7 +14,7 @@ class Hero(Tile):
         an empty list of items and bonuses to
         hp, strength, gold and radius as specified
         in bonuses'''
-        
+
         if name == 'Rogue':
             bonuses = (0, -1, 1)
         elif name == 'Barbarian':
@@ -47,10 +47,7 @@ class Hero(Tile):
         '''ADD SIGNATURE HERE
         Add item to hero's items
         and update their stats as a result.'''
-
-        
         self.hp = self.hp + int(item[-5])
-        
         self.strength = self.strength + int(item[-4])
         self.radius = self.radius + int(item[-3])
         self.items.append(str(item[0]))
@@ -64,7 +61,7 @@ class Hero(Tile):
         while self.hp > 0 and int(baddie[1]) > 0:
             self.hp = self.hp - int(baddie[2])
             baddie[1] = int(baddie[1]) - self.strength
-            
+
         # Baddie strikes first
         # Until one opponent is dead
             # attacker deals damage equal to their strength

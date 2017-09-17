@@ -40,8 +40,10 @@ class Game:
             return
         mapfile = open(mapname + ".map", "r")
         walls = []
+        print(walls)
         items = []
         monsters = []
+        doors = []
         row = 0
         assert mapfile.readline() == "MAPSTART\n"
         currline = mapfile.readline()
@@ -49,6 +51,8 @@ class Game:
             for col in range(len(currline)):
                 if currline[col] == 'X':
                     walls.append((row, col))
+                if currline[col] == 'D':
+                    doors.append((row, col))
             currline = mapfile.readline()
             row += 1
 
@@ -73,7 +77,7 @@ class Game:
         mapfile.close()
         
         #create Room
-        room = Room(self, walls, items, monsters)
+        room = Room(self, walls, items, monsters, doors, mapname)
 
         # PROCESS .links FILES HERE
 
