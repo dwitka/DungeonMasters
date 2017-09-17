@@ -75,20 +75,9 @@ class GameScreen:
 
 
     def get_gameover_room(self):
-        self.game_list[5][7] = " "
-        self.game_list[5][8] = "G"
-        self.game_list[5][9] = "A"
-        self.game_list[5][10] = "M"
-        self.game_list[5][11] = "E"
-        self.game_list[5][12] = " "
-
-        self.game_list[6][7] = " "
-        self.game_list[6][8] = "O"
-        self.game_list[6][9] = "V"
-        self.game_list[6][10] = "E"
-        self.game_list[6][11] = "R"
-        self.game_list[6][12] = " "
-        
+        string = " GAME OVER "
+        for i in range(5,16):
+            self.game_list[5][i] = string[i-5]
         return self.list_to_string()
 
 
