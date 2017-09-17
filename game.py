@@ -43,40 +43,38 @@ class Game:
         print(walls)
         items = []
         monsters = []
-	doors = []
-
+        doors = []
+        
         row = 0
         assert mapfile.readline() == "MAPSTART\n"
-        current_line = mapfile.readline()
-        while current_line != "MAPFINISH\n":
-            for col in range(len(current_line)):
-                if current_line[col] == 'X':
+        currline = mapfile.readline()
+        while currline != "MAPFINISH\n":
+            for col in range(len(currline)):
+                if currline[col] == 'X':
                     walls.append((row, col))
-
-                elif current_line[col] == 'D':
+                if currline[col] == 'D':
                     doors.append((row, col))
-            current_line = mapfile.readline()
-
+            currline = mapfile.readline()
             row += 1
 
         #begin populating with items
         assert mapfile.readline() == "ITEMS\n"
-        current_line = mapfile.readline()
-        while current_line != "MONSTERS\n":
+        currline = mapfile.readline()
+        while currline != "MONSTERS\n":
             # ADD ITEM PARSING CODE HERE
-            strip_line = current_line.strip()
-            split_line = strip_line.split(',')
-            items.append(split_line)
-            current_line = mapfile.readline()
+            bob = currline.strip()
+            bob = bob.split(',')
+            items.append(bob)
+            currline = mapfile.readline()
             
         #begin populating with monsters
         #assert mapfile.readline() == "MONSTERS\n"
-        current_line = mapfile.readline()
-        while current_line != "ENDFILE":
-            strip_line = current_line.strip()
-            split_line = strip_line.split(',')
-            monsters.append(split_line)
-            current_line = mapfile.readline()
+        currline = mapfile.readline()
+        while currline != "ENDFILE":
+            joe = currline.strip()
+            joe = joe.split(',')
+            monsters.append(joe)
+            currline = mapfile.readline()
         mapfile.close()
         
         #create Room

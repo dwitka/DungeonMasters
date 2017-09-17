@@ -17,7 +17,6 @@ class Room:
         Add walls at all coordinates specified as tuples (x, y) in walls.'''
 
         self.game = game
-        #self.doors = doors
         self.rows = ROWS
         self.cols = COLS
         self.items = items
@@ -52,12 +51,12 @@ class Room:
         # 4 - center
 
         self.locations = [
-            (self.rows - 2, ceil(self.cols // 2)),
-            (1, ceil(self.cols // 2)),
-            (ceil(self.rows // 2), 1),
-            (ceil(self.rows // 2), self.cols - 2),
-            (ceil(self.rows // 2), ceil(self.cols // 2))
-            ]
+                        (self.rows - 2, ceil(self.cols // 2)),
+                        (1, ceil(self.cols // 2)),
+                        (ceil(self.rows // 2), 1),
+                        (ceil(self.rows // 2), self.cols - 2),
+                        (ceil(self.rows // 2), ceil(self.cols // 2))
+                        ]
 
     def update_visibility(self):
         '''(Room) -> NoneType
@@ -79,7 +78,6 @@ class Room:
                     pass
                 elif type(self.grid[self.hero_x + i][self.hero_y + j]) == Wall:
                     self.add(Wall(True), self.hero_x + i, self.hero_y + j)
-
                 elif type(self.grid[self.hero_x + i][self.hero_y + j]) == Door:
                     self.add(Door(True), self.hero_x + i, self.hero_y + j)
                 elif type(self.grid[self.hero_x + i][self.hero_y + j]) == Item:
@@ -93,7 +91,7 @@ class Room:
         '''(Room, Hero, int) -> NoneType
         Add hero hero to the room, placing him
         as specified in self.locations[where].'''
-
+        
         self.hero_x, self.hero_y = self.locations[where]
         self.hero = hero
         self.grid[self.hero_x][self.hero_y] = self.hero
@@ -102,30 +100,27 @@ class Room:
     def add(self, obj, x, y):
         '''(Room, Tile, int, int) -> NoneType
         Add Tile object obj to the room at (x, y).'''
-
         self.grid[x][y] = obj
+
 
     def in_grid(self, x, y):
         '''(Room, int, int) -> bool
         Return True iff coordinates (x,y) fall within the room's grid.'''
-
         return x >= 0 and x < self.rows and y >= 0 and y < self.cols
+
 
     def move_hero(self, x, y):
         '''(Room, int, int) -> NoneType
         Move hero to new location +x and +y from current location.
         If the new location is impenetrable, do not update hero location.'''
-
         newx = self.hero_x + x
         newy = self.hero_y + y
+        print("x is: " + str(newx))
+        print("y is: " + str(newy))
         if not self.in_grid(newx, newy) or type(self.grid[newx][newy]) == Wall:
             return
 
-        # DOOR CODE GOES HERE
-        # if type(self.grid[newx][newy]) == Door:
-        #   load new room
-        #   place hero in position
-
+        # DOOR COD GOES HERE
         elif type(self.grid[newx][newy]) == Door:
             print(str(self.mapname))
             dungeons = []
@@ -133,19 +128,27 @@ class Room:
                 return
             mapfile = open("rooms/startroom" + ".links", "r")
             line = mapfile.readline()
+            
             while line != "":
-                print(line.strip())
                 dungeons.append(line)
                 line = mapfile.readline()
 
             if newx == 0:
-                print(str(dungeons[2]).strip())
-
-                #import pdb; pdb.set_trace()
+                print("x position: ", newx)
                 self.game.current_room = self.game.load(str(dungeons[0]).strip())
                 self.game.current_room.add_hero(self.hero, 0)
-                #self.resolve(newx, newy)
-                #self.update_visibility()
+            elif newx == 10:
+                print("x position: ", newx)
+                self.game.current_room = self.game.load(str(dungeons[1]).strip())
+                self.game.current_room.add_hero(self.hero, 0)
+            elif newy == 0:
+                print("y position: ", newy)
+                self.game.current_room = self.game.load(str(dungeons[3]).strip())
+                self.game.current_room.add_hero(self.hero, 0)
+            elif newy == 20:
+                print("y position: ", newy)
+                self.game.current_room = self.game.load(str(dungeons[2]).strip())
+                self.game.current_room.add_hero(self.hero, 0)
 
         else:
             self.resolve(newx, newy)
