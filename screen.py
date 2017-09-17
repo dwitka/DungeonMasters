@@ -11,17 +11,19 @@ class GameScreen:
         Initialize new game with new user-selected hero class
         and starting room files.'''
         hero = None
+        #Get the text input and choose the hero
         while hero is None:
-            inputText = input("Select hero type:\n(R)ogue (M)age (B)arbarian\n")
-            inputText = inputText.lower()
-            if inputText == 'r':
+            c = input("Select hero type:\n(R)ogue (M)age (B)arbarian\n")
+            c = c.lower()
+            if c == 'r':
                 hero = 'Rogue'
-            elif inputText == 'm':
+            elif c == 'm':
                 hero = 'Mage'
-            elif inputText == 'b':
+            elif c == 'b':
                 hero = 'Barbarian'
-
+        #Initialize game with hero
         self.game = Game("rooms/dungeonroom", hero)
+
 
     def play(self):
         '''(Game) -> NoneType
@@ -31,69 +33,70 @@ class GameScreen:
             print(self)
             if self.game.game_over():
                 break
-            inputText = input("Next: ")
-            if inputText in ['q', 'x']:
+            c = input("Next: ")
+            if c in ['q', 'x']:
                 print("Thanks for playing!")
                 exit = True
-            elif inputText == 'w':  # UP
+            #Text input to control hero's movements
+            elif c == 'w':  # UP
                 self.game.move_hero(-1, 0)
-            elif inputText == 's':  # DOWN
+            elif c == 's':  # DOWN
                 self.game.move_hero(1, 0)
-            elif inputText == 'a':  # LEFT
+            elif c == 'a':  # LEFT
                 self.game.move_hero(0, -1)
-            elif inputText == 'd':  # RIGHT
+            elif c == 'd':  # RIGHT
                 self.game.move_hero(0, 1)
-            elif inputText == 'r':
+            elif c == 'r':
                 ## RESTART GAME
                 self.initialize_game()
             else:
                 pass
 
+
     def __str__(self):
-        '''(GameScreen) -> String
+        '''(GameScreen) -> NoneType
         Return a string representing the current room.
         Include the game's Hero string represetation and a
         status message from the last action taken.'''
         room = self.game.current_room
-        currentRoom = ""
-
+        room_string = ""
+        #Render a GAME OVER screen with text mostly centered
+        #In the space of the room in which the character died.
         if self.game.game_over():
-            #render a GAME OVER screen with text mostly centered
-            #in the space of the room in which the character died.
-
-            #top row
-            currentRoom += "X" * (2 + room.cols) + "\n"
-            #empty rows above GAME OVER
+            #Top row
+            room_string += "X" * (2 + room.cols) + "\n"
+            #Empty rows above GAME OVER
             for i in list(range(floor((room.rows - 2) / 2))):
-                currentRoom += "X" + " " * room.cols + "X\n"
-            # GAME OVER rows
-            currentRoom += ("X" + " " * floor((room.cols - 4) / 2) +
+                room_string += "X" + " " * room.cols + "X\n"
+            #GAME OVER rows
+            room_string += ("X" + " " * floor((room.cols - 4) / 2) +
                 "GAME" + " " * ceil((room.cols - 4) / 2) + "X\n")
-            currentRoom += ("X" + " " * floor((room.cols - 4) / 2) +
+            room_string += ("X" + " " * floor((room.cols - 4) / 2) +
                 "OVER" + " " * ceil((room.cols - 4) / 2) + "X\n")
-            #empty rows below GAME OVER
+            #Empty rows below GAME OVER
             for i in list(range(ceil((room.rows - 2) / 2))):
-                currentRoom += "X" + " " * room.cols + "X\n"
-            #bottom row
-            currentRoom += "X" * (2 + room.cols) + "\n"
+                room_string += "X" + " " * room.cols + "X\n"
+            #Bottom row
+            room_string += "X" * (2 + room.cols) + "\n"
         else:
-            for index_i in range(room.rows):
-                for index_j in room.grid[index_i]:
-                    if index_j is not None:
-                        if index_j.visible:
-                            currentRoom += index_j.symbol()
+            for row in range(room.rows):
+                for column in room.grid[row]:
+                    if column is not None:
+                        if column.visible:
+                            room_string += column.symbol()
                         else:
                             #This is the symbol for 'not yet explored' : ?
-                            currentRoom += "?"
-                currentRoom += "\n"
-        #hero representation
-        currentRoom += str(self.game.hero)
-        #last status message
-        currentRoom += room.status
-        return currentRoom
-
+                            room_string += "?"
+                room_string += "\n"
+        #Hero representation
+        room_string += str(self.game.hero)
+        #Last status message
+        room_string += room.status
+        return room_string
+    
+#Start the game 
 if __name__ == '__main__':
-    gs = GameScreen()
-    gs.initialize_game()
-    gs.play()
+    game_screen = GameScreen()
+    game_screen.initialize_game()
+    game_screen.play()
 
