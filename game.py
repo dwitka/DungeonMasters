@@ -42,34 +42,37 @@ class Game:
         walls = []
         items = []
         monsters = []
+        #doors = []
         row = 0
         assert mapfile.readline() == "MAPSTART\n"
-        currline = mapfile.readline()
-        while currline != "MAPFINISH\n":
-            for col in range(len(currline)):
-                if currline[col] == 'X':
+        current_line = mapfile.readline()
+        while current_line != "MAPFINISH\n":
+            for col in range(len(current_line)):
+                if current_line[col] == 'X':
                     walls.append((row, col))
-            currline = mapfile.readline()
+                #elif current_line[col] == 'D':
+                    #doors.append((row, col))
+            current_line = mapfile.readline()
             row += 1
 
         #begin populating with items
         assert mapfile.readline() == "ITEMS\n"
-        currline = mapfile.readline()
-        while currline != "MONSTERS\n":
+        current_line = mapfile.readline()
+        while current_line != "MONSTERS\n":
             # ADD ITEM PARSING CODE HERE
-            bob = currline.strip()
-            bob = bob.split(',')
-            items.append(bob)
-            currline = mapfile.readline()
+            strip_line = current_line.strip()
+            split_line = strip_line.split(',')
+            items.append(split_line)
+            current_line = mapfile.readline()
             
         #begin populating with monsters
         #assert mapfile.readline() == "MONSTERS\n"
-        currline = mapfile.readline()
-        while currline != "ENDFILE":
-            joe = currline.strip()
-            joe = joe.split(',')
-            monsters.append(joe)
-            currline = mapfile.readline()
+        current_line = mapfile.readline()
+        while current_line != "ENDFILE":
+            strip_line = current_line.strip()
+            split_line = strip_line.split(',')
+            monsters.append(split_line)
+            current_line = mapfile.readline()
         mapfile.close()
         
         #create Room

@@ -17,6 +17,7 @@ class Room:
         Add walls at all coordinates specified as tuples (x, y) in walls.'''
 
         self.game = game
+        #self.doors = doors
         self.rows = ROWS
         self.cols = COLS
         self.items = items
@@ -29,6 +30,9 @@ class Room:
         #add walls as specified by the map file
         for i, j in walls:
             self.grid[i][j] = Wall()
+
+        #for i, j in doors:
+            #self.grid[i][j] = Door()
             
         for item in items:
             i = int(item[-2])
@@ -74,6 +78,8 @@ class Room:
                     pass
                 elif type(self.grid[self.hero_x + i][self.hero_y + j]) == Wall:
                     self.add(Wall(True), self.hero_x + i, self.hero_y + j)
+                #elif type(self.grid[self.hero_x + i][self.hero_y + j]) == Door:
+                    #self.add(Door(True), self.hero_x + i, self.hero_y + j)
                 elif type(self.grid[self.hero_x + i][self.hero_y + j]) == Item:
                     self.add(Item(True), self.hero_x + i, self.hero_y + j)
                 elif type(self.grid[self.hero_x + i][self.hero_y + j]) == Monster:

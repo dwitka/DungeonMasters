@@ -75,6 +75,6 @@ class Door:
 
     def symbol(self):
         '''(Door) -> str
-        Return the map representation symbol for Wall: X.'''
+        Return the map representation symbol for Door: D.'''
 
         return "D"
