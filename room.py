@@ -10,8 +10,8 @@ COLS = 21
 class Room:
     '''A class representing one of several interconnected
     Rooms that constitute the game.'''
-    
-    def __init__(self, game, walls, items, monsters):
+
+    def __init__(self, game, walls, items, monsters, doors, mapname):
         '''(Room, Game, list) -> NoneType
         Create a new Room that belongs to game game.
         Add walls at all coordinates specified as tuples (x, y) in walls.'''
@@ -22,6 +22,7 @@ class Room:
         self.cols = COLS
         self.items = items
         self.monsters = monsters
+        self.mapname = mapname
 
         #populate the entire grid with empty tiles first
         self.grid = [[Tile() for q in list(range(self.cols))]
@@ -31,14 +32,14 @@ class Room:
         for i, j in walls:
             self.grid[i][j] = Wall()
 
-        #for i, j in doors:
-            #self.grid[i][j] = Door()
-            
+        for i, j in doors:
+            self.grid[i][j] = Door()
+
         for item in items:
             i = int(item[-2])
             j = int(item[-1])
             self.grid[i][j] = Item()
-            
+
         for item in monsters:
             i = int(item[-2])
             j = int(item[-1])
@@ -61,7 +62,7 @@ class Room:
     def update_visibility(self):
         '''(Room) -> NoneType
         Update what the hero has uncovered given his new position.'''
-        
+
         L = []
         for i in range(self.hero.radius):
             L.append(i)
@@ -69,7 +70,7 @@ class Room:
         L.append(self.hero.radius)
         L.append(-self.hero.radius)
         L.remove(0)
-        
+
         for i in L:
             for j in L:
                 if i == 0 and j == 0:
@@ -78,8 +79,9 @@ class Room:
                     pass
                 elif type(self.grid[self.hero_x + i][self.hero_y + j]) == Wall:
                     self.add(Wall(True), self.hero_x + i, self.hero_y + j)
-                #elif type(self.grid[self.hero_x + i][self.hero_y + j]) == Door:
-                    #self.add(Door(True), self.hero_x + i, self.hero_y + j)
+
+                elif type(self.grid[self.hero_x + i][self.hero_y + j]) == Door:
+                    self.add(Door(True), self.hero_x + i, self.hero_y + j)
                 elif type(self.grid[self.hero_x + i][self.hero_y + j]) == Item:
                     self.add(Item(True), self.hero_x + i, self.hero_y + j)
                 elif type(self.grid[self.hero_x + i][self.hero_y + j]) == Monster:
@@ -124,6 +126,27 @@ class Room:
         #   load new room
         #   place hero in position
 
+        elif type(self.grid[newx][newy]) == Door:
+            print(str(self.mapname))
+            dungeons = []
+            if self.mapname == "None":
+                return
+            mapfile = open("rooms/startroom" + ".links", "r")
+            line = mapfile.readline()
+            while line != "":
+                print(line.strip())
+                dungeons.append(line)
+                line = mapfile.readline()
+
+            if newx == 0:
+                print(str(dungeons[2]).strip())
+
+                #import pdb; pdb.set_trace()
+                self.game.current_room = self.game.load(str(dungeons[0]).strip())
+                self.game.current_room.add_hero(self.hero, 0)
+                #self.resolve(newx, newy)
+                #self.update_visibility()
+
         else:
             self.resolve(newx, newy)
         self.update_visibility()
@@ -143,18 +166,18 @@ class Room:
                 k = self.items.pop(q)
                 self.hero.take(k)
                 print("Picked up!!!", (str(item[0])))
-                
-                
+
+
         for item in self.monsters:
             if self.hero_x == int(item[-2]) and self.hero_y == int(item[-1]):
                 q = self.monsters.index(item)
                 k = self.monsters.pop(q)
                 self.hero.fight(k)
                 print("Fight!!!")
-                
-                
-                
-                
+
+
+
+
                 '''
                 self.hero.hp = self.hero.hp + int(item[-5])
                 if int(item[-5]) != 0:
@@ -162,7 +185,7 @@ class Room:
                 self.hero.strength = self.hero.strength + int(item[-4])
                 self.hero.radius = self.hero.radius + int(item[-3])
                 self.items.remove(item)'''
-        
+
 
         self.status = ""
 

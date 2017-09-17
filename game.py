@@ -40,9 +40,11 @@ class Game:
             return
         mapfile = open(mapname + ".map", "r")
         walls = []
+        print(walls)
         items = []
         monsters = []
-        #doors = []
+	doors = []
+
         row = 0
         assert mapfile.readline() == "MAPSTART\n"
         current_line = mapfile.readline()
@@ -50,9 +52,11 @@ class Game:
             for col in range(len(current_line)):
                 if current_line[col] == 'X':
                     walls.append((row, col))
-                #elif current_line[col] == 'D':
-                    #doors.append((row, col))
+
+                elif current_line[col] == 'D':
+                    doors.append((row, col))
             current_line = mapfile.readline()
+
             row += 1
 
         #begin populating with items
@@ -76,7 +80,7 @@ class Game:
         mapfile.close()
         
         #create Room
-        room = Room(self, walls, items, monsters)
+        room = Room(self, walls, items, monsters, doors, mapname)
 
         # PROCESS .links FILES HERE
 
