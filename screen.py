@@ -13,13 +13,13 @@ class GameScreen:
         hero = None
         #Get the text input and choose the hero
         while hero is None:
-            c = input("Select hero type:\n(R)ogue (M)age (B)arbarian\n")
-            c = c.lower()
-            if c == 'r':
+            text_input = input("Select hero type:\n(R)ogue (M)age (B)arbarian\n")
+            text_input = text_input.lower()
+            if text_input == 'r':
                 hero = 'Rogue'
-            elif c == 'm':
+            elif text_input == 'm':
                 hero = 'Mage'
-            elif c == 'b':
+            elif text_input == 'b':
                 hero = 'Barbarian'
         #Initialize game with hero
         self.game = Game("rooms/dungeonroom", hero)
@@ -33,20 +33,20 @@ class GameScreen:
             print(self)
             if self.game.game_over():
                 break
-            c = input("Next: ")
-            if c in ['q', 'x']:
+            text_input = input("Next: ")
+            if text_input in ['q', 'x']:
                 print("Thanks for playing!")
                 exit = True
             #Text input to control hero's movements
-            elif c == 'w':  # UP
+            elif text_input == 'w':  # UP
                 self.game.move_hero(-1, 0)
-            elif c == 's':  # DOWN
+            elif text_input == 's':  # DOWN
                 self.game.move_hero(1, 0)
-            elif c == 'a':  # LEFT
+            elif text_input == 'a':  # LEFT
                 self.game.move_hero(0, -1)
-            elif c == 'd':  # RIGHT
+            elif text_input == 'd':  # RIGHT
                 self.game.move_hero(0, 1)
-            elif c == 'r':
+            elif text_input == 'r':
                 ## RESTART GAME
                 self.initialize_game()
             else:

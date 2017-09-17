@@ -69,6 +69,7 @@ class Game:
             current_line = mapfile.readline()
             
         #Begin populating monsters List with monsters
+
         current_line = mapfile.readline()
         while current_line != "ENDFILE":
             strip_line = current_line.strip()
