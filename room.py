@@ -127,7 +127,7 @@ class Room:
                 return
             #Open links file, read lines and append them to dungeons List
             #The dungeons List contains file names to adjacent dungeons
-            mapfile = open("rooms/startroom" + ".links", "r")
+            mapfile = open(self.mapname + ".links", "r")
             line = mapfile.readline()
             while line != "":
                 dungeons.append(line)

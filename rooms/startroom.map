@@ -1,15 +1,15 @@
 MAPSTART
-XXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXDXXXXXXX
 X      X            X
-X      X            X
+D      X            X
 X                   X
 XXXXXXXX            X
+X                   D
 X                   X
 X                   X
 X                   X
 X                   X
-X                   X
-XXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXDXXXXXXXXX
 MAPFINISH
 ITEMS
 Healing Potion,4,0,0,5,12

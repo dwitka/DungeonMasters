@@ -1,5 +1,5 @@
 MAPSTART
-XXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXDXXXXXXXXXX
 X                   X
 X      XXXXXXX      X
 X     X             X
@@ -12,6 +12,7 @@ X                   X
 XXXXXXXXXXXXXXXXXXXXX
 MAPFINISH
 ITEMS
+Cheeseburger,2,2,2,7,8
 MONSTERS
 Guardian,3,5,1,7
 Guardian,3,5,1,12

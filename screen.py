@@ -22,7 +22,7 @@ class GameScreen:
             elif text_input == 'b':
                 hero = 'Barbarian'
         #Initialize game with hero
-        self.game = Game("rooms/dungeonroom", hero)
+        self.game = Game("rooms/startroom", hero)
 
 
     def play(self):
