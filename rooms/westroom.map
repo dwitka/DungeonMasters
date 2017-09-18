@@ -4,7 +4,7 @@ X                   X
 X                   X
 X                   X
 X X   X   XXXXXXXXXXX
-X X X X             X
+X X X X             D
 X  X X    XXXXXXXXXXX
 X                   X
 X                   X
@@ -12,5 +12,7 @@ X                   X
 XXXXXXXXXXXXXXXXXXXXX
 MAPFINISH
 ITEMS
+Key,0,0,0,5,1
 MONSTERS
+Demon Troll,10,6,5,9
 ENDFILE
