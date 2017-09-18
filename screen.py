@@ -10,7 +10,7 @@ class GameScreen:
         '''(GameScreen) -> NoneType
         Initialize new game with new user-selected hero class
         and starting room files.'''
-        self.game_list =[]
+        self.current_room_list =[]
         hero = None
         #Get the text input and choose the hero
         while hero is None:
@@ -55,9 +55,9 @@ class GameScreen:
 
 
     def __str__(self):
-        '''(GameScreen) -> NoneType
+        '''(GameScreen) -> String
         Return a string representing the current room.
-        Include the game's Hero string represetation and a
+        Include the game's Hero string representation and a
         status message from the last action taken.'''
         room = self.game.current_room
         room_string = ""
@@ -75,18 +75,24 @@ class GameScreen:
 
 
     def get_gameover_room(self):
+        '''(GameScreen) -> String
+        Return a string representing the current room
+        with the words 'GAME OVER' written across the
+        centre of the room'''
         string = " GAME OVER "
         for i in range(5,16):
-            self.game_list[5][i] = string[i-5]
+            self.current_room_list[5][i] = string[i-5]
         return self.list_to_string()
 
 
     def get_room(self, room_string, room):
-        self.game_list =[]
+        '''(GameScreen, String, Object) -> String
+        Return a string representing the current room'''
+        self.current_room_list =[]
         for row in range(room.rows):
-            self.game_list.append([])
+            self.current_room_list.append([])
             for column in room.grid[row]:
-                self.game_list[row].append(column.symbol())
+                self.current_room_list[row].append(column.symbol())
                 if column is not None:
                     if column.visible:
                         room_string += column.symbol()
@@ -98,9 +104,11 @@ class GameScreen:
 
 
     def list_to_string(self):
-        List = self.game_list
+        '''(GameScreen, String, Object) -> String
+        Process the contents of a list and return
+        a string representing the current room'''
         game_string = ""
-        for row in List:
+        for row in self.current_room_list:
             for column in row:
                 game_string = game_string + column
             game_string += "\n"
